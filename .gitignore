@@ -1,0 +1,23 @@
+# Node
+node_modules/
+dist/
+.env
+
+# Python
+__pycache__/
+*.pyc
+venv/
+.venv/
+
+# Docker Volumes (Infrastructure)
+infrastructure/mosquitto/data/
+infrastructure/mosquitto/log/
+infrastructure/influxdb/data/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db

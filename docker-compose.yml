@@ -1,0 +1,77 @@
+version: '3.8'
+
+services:
+  # Message Broker - The heart of the Unified Namespace
+  mqtt-broker:
+    image: eclipse-mosquitto:latest
+    container_name: factory-mqtt-broker
+    ports:
+      - "1883:1883"
+      - "9001:9001"
+    volumes:
+      - ./infrastructure/mosquitto/config:/mosquitto/config
+      - ./infrastructure/mosquitto/data:/mosquitto/data
+      - ./infrastructure/mosquitto/log:/mosquitto/log
+    restart: always
+
+  # Time-Series Database
+  influxdb:
+    image: influxdb:2.7
+    container_name: factory-influxdb
+    ports:
+      - "8086:8086"
+    environment:
+      - DOCKER_INFLUXDB_INIT_MODE=setup
+      - DOCKER_INFLUXDB_INIT_USERNAME=admin
+      - DOCKER_INFLUXDB_INIT_PASSWORD=factory_password_2026
+      - DOCKER_INFLUXDB_INIT_ORG=digital_twin_factory
+      - DOCKER_INFLUXDB_INIT_BUCKET=telemetry
+    volumes:
+      - ./infrastructure/influxdb/data:/var/lib/influxdb2
+    restart: always
+
+  # Visualization (Admin)
+  grafana:
+    image: grafana/grafana:latest
+    container_name: factory-grafana
+    ports:
+      - "3001:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    volumes:
+      - ./infrastructure/grafana/provisioning:/etc/grafana/provisioning
+    depends_on:
+      - influxdb
+    restart: always
+
+  # Digital Twin Core (FastAPI)
+  twin-core:
+    build: ./services/twin-core
+    container_name: twin-core
+    ports:
+      - "8000:8000"
+    environment:
+      - MQTT_HOST=mqtt-broker
+      - INFLUXDB_URL=http://influxdb:8086
+      - INFLUXDB_TOKEN=factory_token_2026
+    depends_on:
+      - mqtt-broker
+      - influxdb
+
+  # Edge AI Node (Simulator)
+  edge-node:
+    build: ./services/edge-node
+    container_name: edge-node
+    environment:
+      - MQTT_HOST=mqtt-broker
+    depends_on:
+      - mqtt-broker
+
+  # Premium Dashboard (React)
+  dashboard:
+    build: ./dashboard
+    container_name: factory-dashboard
+    ports:
+      - "5173:5173"
+    depends_on:
+      - twin-core

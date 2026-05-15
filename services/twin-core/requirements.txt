@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+paho-mqtt
+influxdb-client
+pydantic
+python-dotenv
+httpx
+langchain
+openai
