@@ -92,3 +92,12 @@ This project demonstrates event modelling, edge/cloud separation, industrial tel
 ## Author
 
 **Achraf BRIKI** · [LinkedIn](https://www.linkedin.com/in/achrafbriki/) · [Portfolio](https://achrafbriki.com)
+
+## Delivery profile
+
+**Status:** Prototype  
+**Demo:** Local Docker demonstration; no public hosted demo yet.  
+**Prerequisites:** Docker Compose; Node.js for the dashboard.  
+**Validation:** MQTT flow, twin-state updates, dashboard refresh and edge restart.  
+**Performance plan:** Measure throughput, end-to-end latency, dashboard freshness and recovery time; no production benchmark is claimed yet.  
+**Roadmap:** Integration tests, authentication, audit trails, energy KPIs and reproducible anomaly benchmarks.
