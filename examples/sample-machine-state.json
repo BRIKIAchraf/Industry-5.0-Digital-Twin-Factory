@@ -1,0 +1,12 @@
+{
+  "factory": "demo-factory",
+  "line": "line-01",
+  "machine": "press-03",
+  "timestamp": "2026-01-15T10:30:00Z",
+  "state": "running",
+  "oee": 0.87,
+  "energy_kwh": 12.4,
+  "co2_kg": 3.1,
+  "vibration_rms": 0.18,
+  "edge_alert": null
+}
