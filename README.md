@@ -1,3 +1,8 @@
+
+
+## About
+
+Industrial IoT and Digital Twin portfolio project connecting edge telemetry, factory state, AI-assisted operations and sustainability metrics through a resilient, observable architecture.
 # Industry 5.0 Digital Twin Factory
 
 Industrial IoT and digital-twin platform designed to connect factory operations, edge intelligence, AI-assisted decision support, and sustainability metrics.
