@@ -21,7 +21,6 @@ import {
   Gauge
 } from 'lucide-react';
 import { 
-  LineChart, 
   Line, 
   XAxis, 
   YAxis, 
