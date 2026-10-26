@@ -1,90 +1,89 @@
-# 🏭 Industry 5.0 Digital Twin Factory
+# Industry 5.0 Digital Twin Factory
 
-Welcome to the **Digital Twin Factory 5.0**, a state-of-the-art Industrial IoT (IIoT) ecosystem designed for the next generation of manufacturing. This project implements a **Unified Namespace (UNS)** architecture, **Edge Intelligence**, and a human-centric **AI Copilot** to bridge the gap between Operational Technology (OT) and Information Technology (IT).
+Industrial IoT and digital-twin platform designed to connect factory operations, edge intelligence, AI-assisted decision support, and sustainability metrics.
 
----
+## Why this project matters
 
-## 🌟 Vision: Industry 4.0 ➡️ 5.0
+The project explores how a factory can become:
 
-This project moves beyond the pure automation of Industry 4.0 into the three pillars of **Industry 5.0**:
-1.  **Human-Centric**: An AI Copilot assists operators instead of replacing them.
-2.  **Sustainable**: Real-time tracking of CO2 and Energy consumption.
-3.  **Resilient**: Edge-first architecture that functions even when cloud connectivity is lost.
+- **Human-centric:** an AI copilot assists operators with context about machines and KPIs;
+- **Resilient:** edge processing continues when cloud connectivity is unavailable;
+- **Sustainable:** energy consumption and CO₂ indicators are tracked alongside production data.
 
----
+## Architecture
 
-## 🚀 Quick Start
+~~~text
+Sensors / machine simulator
+          ↓ MQTT / Sparkplug B
+      Edge node
+          ↓ Unified Namespace
+     Digital Twin API
+          ↓
+ InfluxDB time series + Grafana
+          ↓
+   React operations dashboard
+~~~
 
-### Prerequisites
-- [Docker](https://www.docker.com/) & Docker Compose
-- Node.js (for local dashboard development, optional)
+## Main capabilities
 
-### Launching the Factory
-Run the following command in the root directory:
-```bash
-docker-compose up --build
-```
+- Unified Namespace topics using `Factory/{Line}/{Machine}/{Tag}`;
+- local anomaly detection at the edge;
+- digital-twin state exposed through a FastAPI service;
+- time-series storage with InfluxDB;
+- operational dashboards with Grafana;
+- energy and carbon indicators;
+- AI-copilot interaction model for operators;
+- Docker Compose environment for local demonstration.
 
-### Accessing the System
-- **Premium Dashboard**: [http://localhost:5173](http://localhost:5173)
-- **Digital Twin API (FastAPI)**: [http://localhost:8000/docs](http://localhost:8000/docs)
-- **InfluxDB Admin**: [http://localhost:8086](http://localhost:8086)
-- **Grafana (Analytics)**: [http://localhost:3001](http://localhost:3001)
+## Technology stack
 
----
+| Layer | Technologies |
+|---|---|
+| Connectivity | MQTT, Mosquitto, Sparkplug B concepts |
+| Edge | Python, local event processing |
+| API | FastAPI, Pydantic |
+| Storage | InfluxDB 2.7 |
+| Frontend | React, Vite, Tailwind CSS, Framer Motion |
+| Observability | Grafana |
+| Runtime | Docker, Docker Compose |
 
-## 🏗️ Core Features
+## Quick start
 
-### 1. Unified Namespace (UNS)
-A single, centralized source of truth for all factory data. Every sensor, machine, and KPI is mapped to a hierarchical MQTT topic structure:
-`Factory/{Line}/{Machine}/{Tag}`
+Prerequisites: Docker, Docker Compose and optionally Node.js.
 
-### 2. Edge AI & Resilience
-The **Edge Node** performs local anomaly detection. If high vibration is detected, an immediate alert is published to the UNS, ensuring rapid response without cloud latency.
+~~~bash
+docker compose up --build
+~~~
 
-### 3. Industrial AI Copilot
-A natural language interface that allows operators to query the factory state.
-- *"How is the OEE on Line 1?"*
-- *"Explain why Machine 3 has a warning status."*
-- *"What is our current carbon footprint?"*
+Expected local services:
 
-### 4. Sustainability Twin
-Integrated monitoring of energy efficiency and carbon emissions, allowing for "Green Production" optimization.
+- Dashboard: http://localhost:5173
+- Digital Twin API: http://localhost:8000/docs
+- InfluxDB: http://localhost:8086
+- Grafana: http://localhost:3001
 
----
+## Project structure
 
-## 🛠️ Technology Stack
+~~~text
+dashboard/             React operations interface
+services/twin-core/    Digital Twin FastAPI service
+services/edge-node/    Factory and edge simulation
+infrastructure/        MQTT, InfluxDB and Grafana configuration
+docker-compose.yml     Local orchestration
+~~~
 
-| Layer | Technology |
-| :--- | :--- |
-| **Connectivity** | MQTT (Mosquitto), Sparkplug B (Simplified) |
-| **Database** | InfluxDB 2.7 (Time-Series) |
-| **Backend** | FastAPI (Python), Pydantic |
-| **Frontend** | React 18, Vite, Tailwind CSS, Framer Motion |
-| **AI/ML** | Mock RAG (Expandable to Ollama/OpenAI) |
-| **Infrastructure** | Docker, Docker Compose |
+## Engineering focus
 
----
+This project demonstrates event modelling, edge/cloud separation, industrial telemetry, time-series storage, operational visibility, and human-in-the-loop AI. It is a portfolio implementation and should not be considered a certified industrial control system without security, safety and load validation.
 
-## 📂 Project Structure
+## Roadmap
 
-```text
-├── dashboard/               # Premium React UI
-├── services/
-│   ├── twin-core/           # Digital Twin "Brain" (FastAPI)
-│   └── edge-node/           # Physical/Edge Simulation (Python)
-├── infrastructure/
-│   ├── mosquitto/           # MQTT Broker Configuration
-│   ├── influxdb/            # Time-series storage
-│   └── grafana/             # Monitoring Dashboards
-└── docker-compose.yml       # Orchestration
-```
+- Add persistent twin state and versioned event contracts;
+- add authentication and role-based access to control actions;
+- validate anomaly models with labelled historical data;
+- add energy baselines and production-efficiency KPIs;
+- add integration and resilience tests.
 
----
+## Author
 
-## 📘 Documentation
-- [Technical Architecture](ARCHITECTURE.md) - Deep dive into the UNS and data flow.
-- [Walkthrough Guide](walkthrough.md) - Step-by-step exploration of the features.
-
----
-**Developed for the Future of Manufacturing 2026**
+**Achraf BRIKI** · [LinkedIn](https://www.linkedin.com/in/achrafbriki/) · [Portfolio](https://achrafbriki.com)
